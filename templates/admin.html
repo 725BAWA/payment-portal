@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: #007bff;
+      color: white;
+    }
+    img {
+      max-height: 80px;
+    }
+    form {
+      display: inline-block;
+    }
+    button {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      margin: 2px;
+    }
+    .approve {
+      background-color: #28a745;
+    }
+    .reject {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <h2>Admin Panel</h2>
+  <table>
+    <tr>
+      <th>Time</th>
+      <th>UTR</th>
+      <th>Slip</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    {% for deposit in deposits %}
+    <tr>
+      <td>{{ deposit.time }}</td>
+      <td>{{ deposit.utr }}</td>
+      <td>
+        <img src="{{ url_for('static', filename='uploads/' + deposit.filename) }}" alt="Slip">
+      </td>
+      <td>{{ deposit.status }}</td>
+      <td>
+        <form method="POST">
+          <input type="hidden" name="utr" value="{{ deposit.utr }}">
+          <button type="submit" name="action" value="approve" class="approve">Approve</button>
+          <button type="submit" name="action" value="reject" class="reject">Reject</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

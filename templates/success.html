@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submission Received</title>
+  <style>
+    body {
+      background: #f1f3f6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 400px;
+    }
+    .success {
+      font-size: 20px;
+      color: green;
+      margin-bottom: 15px;
+    }
+    .utr {
+      font-weight: bold;
+    }
+    .actions a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .actions a:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="success">✅ Payment Submitted!</div>
+    <p><strong>UTR Number:</strong> <span class="utr">{{ utr }}</span></p>
+    <p><strong>Status:</strong> Pending</p>
+    <div class="actions">
+      <a href="/deposit">Upload Another</a>
+      <a href="/admin">Go to Admin</a>
+    </div>
+  </div>
+</body>
+</html>

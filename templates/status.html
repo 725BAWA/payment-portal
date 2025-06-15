@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Check Payment Status</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef1f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 400px;
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    button {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .approved {
+      color: green;
+    }
+    .rejected {
+      color: red;
+    }
+    .pending {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🔎 Check Payment Status</h2>
+    <form method="POST">
+      <input type="text" name="utr" placeholder="Enter your UTR number" required>
+      <button type="submit">Check Status</button>
+    </form>
+
+    {% if result %}
+      <div class="result {{ result.status|lower }}">
+        <p><strong>UTR:</strong> {{ result.utr }}</p>
+        <p><strong>Status:</strong> {{ result.status }}</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

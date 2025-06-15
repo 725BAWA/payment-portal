@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deposit Funds</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            width: 420px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .details strong {
+            display: inline-block;
+            width: 100px;
+        }
+        img {
+            max-width: 200px;
+            margin: 20px auto;
+        }
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            padding: 12px;
+            width: 100%;
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Deposit Funds</h2>
+        <div class="details">
+            <p><strong>Bank:</strong> {{ bank.bank_name }}</p>
+            <p><strong>Account No:</strong> {{ bank.account_no }}</p>
+            <p><strong>IFSC:</strong> {{ bank.ifsc }}</p>
+            <p><strong>UPI:</strong> {{ bank.upi_id }}</p>
+        </div>
+        <img src="{{ url_for('static', filename=bank.qr_image) }}" alt="QR Code">
+        <form method="POST" enctype="multipart/form-data">
+            <input type="text" name="utr" placeholder="Enter UTR Number" required>
+            <input type="file" name="slip" accept="image/*" required>
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+</body>
+</html>
