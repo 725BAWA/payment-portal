@@ -10,22 +10,24 @@ UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# CSV file for storage
+# CSV file path
 CSV_FILE = 'deposits.csv'
 
-# Bank info to show on deposit page
+# Bank info
 BANK_DETAILS = {
     "bank_name": "State Bank of Example",
     "account_no": "123456789012",
     "ifsc": "SBIN0000123",
     "upi_id": "yourname@upi",
-    "qr_image": "qr/example_qr.png"
+    "qr_image": "example_qr.png"
 }
 
+# Home Page
 @app.route('/')
 def home():
     return render_template('home.html')
 
+# Deposit Page
 @app.route('/deposit', methods=['GET', 'POST'])
 def deposit():
     if request.method == 'POST':
@@ -44,22 +46,20 @@ def deposit():
         return "Missing UTR or Slip!"
     return render_template('deposit.html', bank=BANK_DETAILS)
 
+# Admin Panel
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     deposits = []
-
     if request.method == 'POST':
         action = request.form['action']
         utr_to_update = request.form['utr']
         updated_rows = []
-
         with open(CSV_FILE, 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 if row[1] == utr_to_update:
                     row[3] = 'Approved' if action == 'approve' else 'Rejected'
                 updated_rows.append(row)
-
         with open(CSV_FILE, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(updated_rows)
@@ -76,6 +76,7 @@ def admin():
                 })
     return render_template('admin.html', deposits=deposits)
 
+# UTR Status Check
 @app.route('/status', methods=['GET', 'POST'])
 def check_status():
     result = None
@@ -93,5 +94,7 @@ def check_status():
                         break
     return render_template('status.html', result=result)
 
+# Run the app (Render-friendly)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
